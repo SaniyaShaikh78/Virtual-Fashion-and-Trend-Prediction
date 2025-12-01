@@ -1,0 +1,9 @@
+torch==2.0.1              # PyTorch for model training and inference
+torchvision==0.15.2       # For image transformations and pre-trained models
+dlib==19.24.0             # For facial landmark detection (requires C++ Build Tools)
+opencv-python==4.5.5.64   # OpenCV for image processing
+numpy==1.24.3             # Fundamental package for numerical operations
+tqdm==4.64.0              # Progress bar for tracking training and processes
+# Additional libraries that may be used
+scipy==1.10.1             # For scientific computing (optional, depends on project needs)
+requests==2.28.1          # For handling HTTP requests if needed
