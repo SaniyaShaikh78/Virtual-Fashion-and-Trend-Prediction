@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - Virtual Fashion with AI Personalization</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #pre-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .about-page {
+      padding: 60px 0;
+      background-color: #f4f8fb;
+      text-align: center;
+    }
+
+    .section-heading h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .line-dec {
+      width: 60px;
+      height: 4px;
+      background-color: #007bff;
+      margin: 20px auto;
+    }
+
+    .mission-section h2, .key-features h2 {
+      color: #007bff;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    .mission-section p, .key-features p {
+      font-size: 1rem;
+      color: #555;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+
+    .key-features {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-top: 40px;
+    }
+
+    .feature-box {
+      margin-bottom: 30px;
+    }
+
+    .feature-icon {
+      color: #007bff;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-box h5 {
+      font-weight: 600;
+      color: #007bff;
+      margin-top: 10px;
+    }
+
+    .feature-box p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .subscribe-form {
+      background-color: #c1d0da;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .subscribe-form h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .subscribe-form p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .footer,
+    .sub-footer {
+      background-color: #f9f9f9;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer-menu a {
+      color: #007bff;
+      margin: 0 10px;
+      font-weight: 400;
+    }
+
+    .footer-menu a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Pre Header -->
+  <div id="pre-header">
+    <div class="container">
+      <span>Virtual Fashion with AI Personalization</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Virtual Fashion</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Products</a></li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('trynow') }}">Try Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('assistant') }}">Fashion Assistant</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('skin_predictor') }}">Skin Predictor</a></li>
+          {% if 'user' in session %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Page Content -->
+  <div class="about-page">
+    <div class="container">
+      <div class="section-heading">
+        <div class="line-dec"></div>
+        <h1>About Us</h1>
+      </div>
+
+      <!-- Mission Statement Section -->
+      <div class="mission-section mt-5">
+        <h2>Our Mission</h2>
+        <p>To bridge the gap between fashion and technology, empowering individuals to express their unique style with AI-driven personalization, virtual try-ons, and sustainable fashion choices.</p>
+      </div>
+
+      <!-- Key Features Section -->
+      <div class="key-features mt-5">
+        <h2>Our Core Features</h2>
+        <div class="row text-center mt-4">
+          <div class="col-md-4">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fas fa-brain"></i></div>
+              <h5>AI-Powered Styling</h5>
+              <p>Get curated outfit recommendations powered by advanced AI trained on global fashion trends.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fas fa-camera-retro"></i></div>
+              <h5>Virtual Try-On</h5>
+              <p>Try clothes digitally on your own photo and experience the future of fitting rooms — virtually.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+              <h5>Sustainable Fashion</h5>
+              <p>Shop consciously with AI that guides you toward eco-friendly and ethical outfit choices.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row text-center mt-4">
+          <div class="col-md-4">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fas fa-users"></i></div>
+              <h5>Our Team</h5>
+              <p>Fashion designers, AI researchers, and engineers working together to bring you digital style magic.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fas fa-code-branch"></i></div>
+              <h5>Cutting-Edge Tech</h5>
+              <p>Backed by the latest in deep learning, computer vision, and cloud infrastructure to serve you faster.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fas fa-heart-circle-check"></i></div>
+              <h5>Customer First</h5>
+              <p>We personalize everything from styles to fit so that you can feel confident with every click.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscribe Form -->
+  <div class="subscribe-form">
+    <div class="container">
+      <h1>Get Your Fit Report!</h1>
+      <p>Unlock your perfect fit with just one click!</p>
+      <form id="subscribe" action="" method="get" class="form-inline justify-content-center">
+        <input name="email" type="text" class="form-control mb-2 mr-2" id="email" placeholder="Your Email..." required="">
+        <button type="submit" id="form-submit" class="btn btn-primary mb-2">Try it out Now!</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <ul class="footer-menu list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="#">Help</a></li>
+        <li class="list-inline-item"><a href="#">FAQ's</a></li>
+        <li class="list-inline-item"><a href="#">How It Works?</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Sub Footer -->
+  <div class="sub-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p>&copy; 2024 Virtual Fashion with AI Personalization</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

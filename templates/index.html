@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Virtual Fashion with AI Personalization - Transform your shopping experience" />
+  <meta name="author" content="YourCompany" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" />
+
+  <title>Virtual Fashion with AI Personalization</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('{{ url_for('static', filename='images/banner-bg.jpg') }}') no-repeat center top;
+      background-size: 100% 90%;
+      background-attachment: fixed;
+      color: #333;
+    }
+
+    #pre-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .hero-section {
+      background: url('{{ url_for('static', filename='images/hero-bg.jpg') }}') no-repeat center center;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 120px 0;
+      position: relative;
+    }
+
+    /* UPDATED: Gradient animated text for hero heading */
+    .hero-section h1 {
+      font-weight: 500;
+      font-size: 3rem;
+      margin-bottom: 15px;
+
+      background: linear-gradient(270deg, yellow, red, yellow);
+      background-size: 600% 600%;
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+
+      animation: gradientShift 8s ease infinite;
+      /* Remove static color */
+      /* color: #1664b3; */
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .hero-section p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 15px;
+      color: #1664b3;
+    }
+
+    .hero-section .btn-primary {
+      background-color: #007bff;
+      border: none;
+      padding: 12px 36px;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+
+    .hero-section .btn-primary:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+    }
+
+    .quote {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #1664b3;
+    }
+
+    .ai-technology-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .ai-technology-section h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .ai-technology-section p {
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .ai-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .ai-card {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      text-align: left;
+      transition: transform 0.3s;
+    }
+
+    .ai-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .insights-section {
+      background-color: #dbdbdb;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .insights-section h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .insights-section p {
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .footer {
+      background-color: #f9f9f9;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer-menu a {
+      color: #007bff;
+      margin: 0 10px;
+      font-weight: 400;
+    }
+
+    .footer-menu a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Pre Header -->
+  <div id="pre-header">
+    <div class="container">
+      <span>Welcome to Virtual Fashion with AI Personalization</span>
+    </div>
+  </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Virtual Fashion</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('products') }}">Products</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('trynow') }}">Try
+              Now</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('assistant') }}">Fashion Assistant</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('skin_predictor') }}">Skin Predictor</a>
+          </li>
+
+          {% if 'user' in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <!-- Changed h1 to use animated gradient text -->
+      <h1 class="display-4">Transform Your Fashion Experience</h1>
+      <p class="lead"><b>Discover how our AI-driven platform can help you visualize the perfect look in seconds.</b></p>
+      <p class="quote"><b>"Step into the future of fashion with just a click!"</b></p>
+      <a href="{{ url_for('trynow') }}" class="btn btn-primary btn-lg">Try it Now</a>
+    </div>
+  </section>
+
+  <!-- AI Technology Section -->
+  <section class="ai-technology-section">
+    <div class="container">
+      <h2>AI-Powered Fashion</h2>
+      <p style="color: white;"><b>Our state-of-the-art AI technology personalizes your shopping experience. See yourself in different outfits,
+        get style recommendations, and much more with AI-powered insights.</b></p>
+      <div class="ai-cards">
+        <div class="ai-card">
+          <h4>Virtual Try-On</h4>
+          <p>Try on any outfit virtually and see how it looks in real-time. A seamless experience from the comfort of
+            your home.</p>
+        </div>
+        <div class="ai-card">
+          <h4>Style Recommendations</h4>
+          <p>Get personalized style tips tailored to your preferences and occasions, powered by AI recommendations.</p>
+        </div>
+        <div class="ai-card">
+          <h4>Smart Outfit Matching</h4>
+          <p>Our AI matches outfits with accessories for the perfect look. Explore suggestions for your entire look in
+            one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fashion Insights Section -->
+  <section class="insights-section">
+    <div class="container">
+      <h2>Latest Fashion Insights</h2>
+      <p>Stay ahead with our curated fashion insights and trend reports, powered by AI analysis of global fashion
+        trends.</p>
+      <div class="row">
+        <div class="col-md-4">
+          <h5>2024 Trends: What's In and Out</h5>
+          <p>Discover the latest trends predicted by AI to dominate the fashion scene in 2024.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>How AI is Revolutionizing Fashion</h5>
+          <p>Explore how artificial intelligence is shaping the future of fashion and personalized shopping
+            experiences.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Sustainable Fashion Choices</h5>
+          <p>AI can help you make eco-friendly choices. Learn how sustainability meets style with our
+            recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <ul class="footer-menu list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="#">Help</a></li>
+        <li class="list-inline-item"><a href="#">FAQ's</a></li>
+        <li class="list-inline-item"><a href="#">How It Works</a></li>
+      </ul>
+      <p>&copy; 2024 Virtual Fashion with AI Personalization</p>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+</body>
+
+</html>

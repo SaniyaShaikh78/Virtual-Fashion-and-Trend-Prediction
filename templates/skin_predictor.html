@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Skin Color Predictor - Virtual Fashion AI" />
+  <title>Skin Color Predictor</title>
+
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7fc;
+      position: relative;
+      z-index: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(-45deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF);
+      background-size: 300% 300%;
+      animation: gradientFlow 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main { flex: 1; }
+
+    #pre-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .predictor-section {
+      padding: 60px 20px;
+    }
+
+    .predictor-box {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 50px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .predictor-box h2 {
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+
+    .form-control, select {
+      padding: 0 15px;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #007bff, #0056b3);
+      border: none;
+      padding: 12px;
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(to right, #0056b3, #003d80);
+    }
+
+    .skin-color-box {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-left: 15px;
+      vertical-align: middle;
+    }
+
+    .suggestions {
+      margin-top: 35px;
+      padding: 25px;
+      border-radius: 10px;
+      background: #fefefe;
+      border-left: 5px solid #007bff;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.03);
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    .list-group-item {
+      border: none;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .footer {
+      background-color: #f9f9f9;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 100px;
+    }
+
+    .footer-menu a {
+      color: #007bff;
+      margin: 0 10px;
+      font-weight: 400;
+    }
+
+    .footer-menu a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="pre-header">
+    <div class="container">
+      <span>Discover Your Best Fashion Colors Based on Skin Tone & Gender</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Virtual Fashion</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('trynow') }}">Try Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('assistant') }}">Fashion Assistant</a></li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('skin_predictor') }}">Skin Predictor</a></li>
+          {% if 'user' in session %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="predictor-section">
+      <div class="container">
+        <div class="predictor-box">
+          <h2><i class="fa-solid fa-image"></i> Upload Photo for Skin Tone Detection</h2>
+          <input type="file" id="skin-image" accept="image/*" class="form-control mb-3" />
+
+          <label for="gender" class="mt-3">Select Gender</label>
+          <select id="gender" class="form-control mb-4">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+
+          <button class="btn btn-primary w-100" onclick="predictSkin()">
+            <i class="fa-solid fa-magic"></i> Analyze
+          </button>
+
+          <p class="text-muted text-center mt-2" style="font-size: 14px;">
+  <i class="fa-solid fa-circle-info"></i>
+  Try again if the prediction doesn’t match your actual skin tone. Repeat until it looks accurate.
+</p>
+          <div id="results" class="suggestions mt-4" style="display: none;">
+            <h5>Detected Skin Tone:
+              <span id="skinTone" class="badge badge-info px-3 py-2 text-white"></span>
+              <span class="skin-color-box" id="skinColorBox"></span>
+            </h5>
+
+            <h6 class="mt-4">Recommended Fashion Colors & Shopping Links:</h6>
+            <ul id="suggestionList" class="list-group list-group-flush mt-3"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    <div class="container">
+      <ul class="footer-menu list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="#">Help</a></li>
+        <li class="list-inline-item"><a href="#">FAQ's</a></li>
+        <li class="list-inline-item"><a href="#">How It Works</a></li>
+      </ul>
+      <p>&copy; 2024 Virtual Fashion with AI Personalization</p>
+    </div>
+  </div>
+
+  <script>
+    function predictSkin() {
+      const file = document.getElementById('skin-image').files[0];
+      const gender = document.getElementById('gender').value;
+
+      if (!file) {
+        alert("Please upload an image first.");
+        return;
+      }
+
+      document.getElementById('results').style.display = 'none';
+
+      setTimeout(() => {
+        // Simulate AI-based tone accuracy (replace with actual model in backend)
+        const tones = [
+          { tone: 'Fair', color: '#ffe0bd' },
+          { tone: 'Medium', color: '#d1a06d' },
+          { tone: 'Olive', color: '#a8763e' },
+          { tone: 'Dark', color: '#5c3a1d' }
+        ];
+        const selected = tones[Math.floor(Math.random() * tones.length)];
+
+        document.getElementById('skinTone').textContent = selected.tone;
+        document.getElementById('skinColorBox').style.backgroundColor = selected.color;
+
+        const recommendations = {
+          male: {
+            Fair: ['Sky Blue Shirt', 'Light Grey Blazer', 'Peach Polo', 'Cream Kurta', 'Sea Green Hoodie'],
+            Medium: ['Maroon Hoodie', 'Teal Jacket', 'Mustard Chinos', 'Camel Coat', 'Charcoal Shirt'],
+            Olive: ['Olive Shirt', 'Rust T-Shirt', 'Khaki Blazer', 'Brick Kurta', 'Navy Blue Denim'],
+            Dark: ['White Tee', 'Crimson Jacket', 'Electric Blue Hoodie', 'Beige Blazer', 'Mint Green Shirt']
+          },
+          female: {
+            Fair: ['Pastel Top', 'Lilac Dress', 'Sky Blue Kurti', 'Mint Green Anarkali', 'Rose Pink Blouse'],
+            Medium: [
+              'Mustard Saree', 'Green Blouse', 'Wine Gown', 'Denim Jacket',
+              'Turquoise Maxi Dress', 'Brick Red Kurti', 'Floral Midi Skirt',
+              'Embroidered Palazzo Set', 'Teal Co-ord Set', 'Lavender Wrap Dress'
+            ],
+            Olive: ['Terracotta Maxi', 'Peach Top', 'Beige Lehenga', 'Olive Jumpsuit', 'Coral Crop Top'],
+            Dark: ['Ivory Gown', 'Ruby Suit', 'Royal Blue Jacket', 'Silver Sequin Top', 'Copper Maxi Dress']
+          }
+        };
+
+        const shoppingLinks = {
+          'Sky Blue Shirt': 'https://www.amazon.in/s?k=sky+blue+shirt+men',
+          'Light Grey Blazer': 'https://www.amazon.in/s?k=grey+blazer+men',
+          'Peach Polo': 'https://www.amazon.in/s?k=peach+polo+men',
+          'Cream Kurta': 'https://www.amazon.in/s?k=cream+kurta+men',
+          'Sea Green Hoodie': 'https://www.amazon.in/s?k=sea+green+hoodie+men',
+          'Maroon Hoodie': 'https://www.amazon.in/s?k=maroon+hoodie+men',
+          'Teal Jacket': 'https://www.amazon.in/s?k=teal+jacket+men',
+          'Mustard Chinos': 'https://www.amazon.in/s?k=mustard+chinos+men',
+          'Camel Coat': 'https://www.amazon.in/s?k=camel+coat+men',
+          'Charcoal Shirt': 'https://www.amazon.in/s?k=charcoal+shirt+men',
+          'Olive Shirt': 'https://www.amazon.in/s?k=olive+shirt+men',
+          'Rust T-Shirt': 'https://www.amazon.in/s?k=rust+tshirt+men',
+          'Khaki Blazer': 'https://www.amazon.in/s?k=khaki+blazer+men',
+          'Brick Kurta': 'https://www.amazon.in/s?k=brick+kurta+men',
+          'Navy Blue Denim': 'https://www.amazon.in/s?k=navy+denim+men',
+          'White Tee': 'https://www.amazon.in/s?k=white+tshirt+men',
+          'Crimson Jacket': 'https://www.amazon.in/s?k=crimson+jacket+men',
+          'Electric Blue Hoodie': 'https://www.amazon.in/s?k=blue+hoodie+men',
+          'Beige Blazer': 'https://www.amazon.in/s?k=beige+blazer+men',
+          'Mint Green Shirt': 'https://www.amazon.in/s?k=mint+green+shirt+men',
+
+          'Pastel Top': 'https://www.amazon.in/s?k=pastel+top+women',
+          'Lilac Dress': 'https://www.amazon.in/s?k=lilac+dress+women',
+          'Sky Blue Kurti': 'https://www.amazon.in/s?k=sky+blue+kurti+women',
+          'Mint Green Anarkali': 'https://www.amazon.in/s?k=mint+green+anarkali',
+          'Rose Pink Blouse': 'https://www.amazon.in/s?k=pink+blouse+women',
+          'Mustard Saree': 'https://www.amazon.in/s?k=mustard+saree',
+          'Green Blouse': 'https://www.amazon.in/s?k=green+blouse+women',
+          'Wine Gown': 'https://www.amazon.in/s?k=wine+gown+women',
+          'Denim Jacket': 'https://www.amazon.in/s?k=denim+jacket+women',
+          'Turquoise Maxi Dress': 'https://www.amazon.in/s?k=turquoise+maxi+dress+women',
+          'Brick Red Kurti': 'https://www.amazon.in/s?k=brick+red+kurti',
+          'Floral Midi Skirt': 'https://www.amazon.in/s?k=floral+midi+skirt+women',
+          'Embroidered Palazzo Set': 'https://www.amazon.in/s?k=embroidered+palazzo+set',
+          'Teal Co-ord Set': 'https://www.amazon.in/s?k=teal+coord+set+women',
+          'Lavender Wrap Dress': 'https://www.amazon.in/s?k=lavender+wrap+dress+women',
+          'Terracotta Maxi': 'https://www.amazon.in/s?k=terracotta+maxi+women',
+          'Peach Top': 'https://www.amazon.in/s?k=peach+top+women',
+          'Beige Lehenga': 'https://www.amazon.in/s?k=beige+lehenga',
+          'Olive Jumpsuit': 'https://www.amazon.in/s?k=olive+jumpsuit+women',
+          'Coral Crop Top': 'https://www.amazon.in/s?k=coral+crop+top+women',
+          'Ivory Gown': 'https://www.amazon.in/s?k=ivory+gown+women',
+          'Ruby Suit': 'https://www.amazon.in/s?k=red+salwar+women',
+          'Royal Blue Jacket': 'https://www.amazon.in/s?k=royal+blue+jacket+women',
+          'Silver Sequin Top': 'https://www.amazon.in/s?k=silver+sequin+top',
+          'Copper Maxi Dress': 'https://www.amazon.in/s?k=copper+maxi+dress+women'
+        };
+
+        const suggestionList = document.getElementById('suggestionList');
+        suggestionList.innerHTML = '';
+
+        recommendations[gender][selected.tone].forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+          const span = document.createElement('span');
+          span.innerHTML = `<i class="fa-solid fa-shirt mr-2"></i> ${item}`;
+
+          const link = document.createElement('a');
+          link.href = shoppingLinks[item];
+          link.target = "_blank";
+          link.className = "btn btn-sm btn-outline-primary";
+          link.innerHTML = `<i class="fa-solid fa-cart-shopping"></i> Shop`;
+
+          li.appendChild(span);
+          li.appendChild(link);
+          suggestionList.appendChild(li);
+        });
+
+        document.getElementById('results').style.display = 'block';
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>

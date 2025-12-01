@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Virtual Fashion with AI Personalization - Products</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #pre-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .featured-page {
+      padding: 60px 0;
+      background-color: #f4f8fb;
+      text-align: center;
+    }
+
+    .section-heading h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .line-dec {
+      width: 60px;
+      height: 4px;
+      background-color: #007bff;
+      margin: 20px auto;
+    }
+
+    .button-group button {
+      margin: 5px;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .button-group button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.15);
+    }
+
+    .featured-item {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      transition: transform 0.3s;
+    }
+
+    .featured-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .featured-item img {
+      border-radius: 8px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    .featured-item h4 {
+      font-size: 1.2rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .featured-item h6 {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .page-navigation {
+      background-color: #f9f9f9;
+      padding: 20px 0;
+    }
+
+    .page-navigation ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .page-navigation ul li {
+      display: inline;
+      margin: 0 5px;
+    }
+
+    .page-navigation ul li a {
+      color: #007bff;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Pre Header -->
+  <div id="pre-header">
+    <div class="container">
+      <span>Virtual Fashion with AI Personalization</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Virtual Fashion</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('trynow') }}">Try Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('assistant') }}">Fashion Assistant</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('skin_predictor') }}">Skin Predictor</a></li>
+          {% if 'user' in session %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Featured Items Section -->
+  <div class="featured-page">
+    <div class="container">
+      <div class="section-heading">
+        <div class="line-dec"></div>
+        <h1>Here's some outfits/products you can try on</h1>
+        <p class="text-muted">Pick from the latest curated styles recommended for your virtual try-on experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div class="featured container no-gutter">
+    <div class="row posts">
+      <!-- Product 1 -->
+      <div class="item col-md-4">
+        <a href="{{ url_for('single_product') }}">
+          <div class="featured-item">
+            <img src="{{ url_for('static', filename='images/product-01.jpg') }}" alt="Product 1">
+            <h4>Blue Floral Full-Sleeve Top</h4>
+            <h6>₹1000.00</h6>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="item col-md-4">
+        <a href="{{ url_for('single_product') }}">
+          <div class="featured-item">
+            <img src="{{ url_for('static', filename='images/product-02.jpg') }}" alt="Product 2">
+            <h4>White Crop Top with Wide-Leg Jeans</h4>
+            <h6>₹560.00</h6>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="item col-md-4">
+        <a href="{{ url_for('single_product') }}">
+          <div class="featured-item">
+            <img src="{{ url_for('static', filename='images/product-03.jpg') }}" alt="Product 3">
+            <h4>Black Mesh Sleeve Crop Top with Cargo Pants</h4>
+            <h6>₹3000.00</h6>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="item col-md-4">
+        <a href="{{ url_for('single_product') }}">
+          <div class="featured-item">
+            <img src="{{ url_for('static', filename='images/product-04.jpg') }}" alt="Product 4">
+            <h4>Black Oversized Shirt with White Pants</h4>
+            <h6>₹1500.00</h6>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="item col-md-4">
+        <a href="{{ url_for('single_product') }}">
+          <div class="featured-item">
+            <img src="{{ url_for('static', filename='images/product-05.jpg') }}" alt="Product 3">
+            <h4>Aqua Blue Mini Handbag</h4>
+            <h6>₹2462.00</h6>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="item col-md-4">
+        <a href="{{ url_for('single_product') }}">
+          <div class="featured-item">
+            <img src="{{ url_for('static', filename='images/product-07.jpg') }}" alt="Product 3">
+            <h4>White Hoodie with Black Track Pants Set</h4>
+            <h6>₹1599.00</h6>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Navigation -->
+  <div class="page-navigation">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul>
+            <li class="current-page"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <ul class="footer-menu list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="#">Help</a></li>
+        <li class="list-inline-item"><a href="#">FAQ's</a></li>
+        <li class="list-inline-item"><a href="#">How It Works?</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Sub Footer -->
+  <div class="sub-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p>&copy; 2024 Virtual Fashion with AI Personalization</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+</body>
+
+</html>

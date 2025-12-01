@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AI Fashion Assistant - Virtual Fashion with AI Personalization" />
+  <title>AI Fashion Assistant</title>
+
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+       content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(-45deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF);
+  background-size: 300% 300%;
+  animation: gradientFlow 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      25% {
+        background-position: 50% 100%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      75% {
+        background-position: 50% 0%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    main {
+      flex: 1;
+    }
+
+    #pre-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .assistant-section {
+      padding: 60px 20px;
+    }
+
+    .assistant-box {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .assistant-box h2 {
+      color: #007bff;
+      margin-bottom: 30px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-select, .form-control {
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #ced4da;
+      transition: all 0.3s ease;
+    }
+
+    .form-select:focus, .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .btn-primary {
+      padding: 12px;
+      font-weight: 500;
+      border-radius: 10px;
+    }
+
+    .suggestions {
+      margin-top: 30px;
+      padding: 25px;
+      border: 2px dashed #007bff;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .suggestions h5 {
+      color: #007bff;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .list-group-item {
+      border: none;
+      border-bottom: 1px solid #eee;
+      padding: 15px 10px;
+      font-size: 16px;
+    }
+
+    .list-group-item:last-child {
+      border-bottom: none;
+    }
+
+    .btn-outline-primary {
+      font-size: 14px;
+      border-radius: 8px;
+    }
+
+    .footer {
+      background-color: #f9f9f9;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer-menu a {
+      color: #007bff;
+      margin: 0 10px;
+      font-weight: 400;
+      text-decoration: none;
+    }
+
+    .footer-menu a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pre Header -->
+  <div id="pre-header">
+    <div class="container">
+      <span>Explore Virtual Fashion with AI Personalization</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Virtual Fashion</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('trynow') }}">Try Now</a></li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('assistant') }}">Fashion Assistant</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('skin_predictor') }}">Skin Predictor</a></li>
+          {% if 'user' in session %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Section -->
+  <main>
+    <section class="assistant-section">
+      <div class="container">
+        <div class="assistant-box">
+          <h2>AI Fashion Assistant</h2>
+          <form id="fashionForm">
+            <label for="gender">Select Gender</label>
+            <select id="gender" class="form-select">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
+
+            <label for="style">What’s your fashion preference?</label>
+            <select id="style" class="form-select">
+              <option value="casual">Casual</option>
+              <option value="formal">Formal</option>
+              <option value="ethnic">Ethnic</option>
+              <option value="streetwear">Streetwear</option>
+            </select>
+
+            <label for="occasion">Occasion</label>
+            <input type="text" id="occasion" class="form-control" placeholder="e.g., Wedding, Office, Date" />
+
+            <label for="color">Preferred Colors</label>
+            <input type="text" id="color" class="form-control" placeholder="e.g., Blue, White, Beige" />
+
+            <button type="button" class="btn btn-primary w-100 mt-3" onclick="generateSuggestions()">Get Suggestions</button>
+          </form>
+
+          <div id="suggestionBox" class="suggestions" style="display: none;">
+            <h5>Recommended Outfits</h5>
+            <ul id="suggestionList" class="list-group list-group-flush mt-3"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <ul class="footer-menu list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="#">Help</a></li>
+        <li class="list-inline-item"><a href="#">FAQ's</a></li>
+        <li class="list-inline-item"><a href="#">How It Works</a></li>
+      </ul>
+      <p>&copy; 2024 Virtual Fashion with AI Personalization</p>
+    </div>
+  </div>
+
+  <script>
+    function generateSuggestions() {
+      const gender = document.getElementById('gender').value;
+      const style = document.getElementById('style').value;
+      const occasion = document.getElementById('occasion').value.trim().toLowerCase();
+      const color = document.getElementById('color').value.trim().toLowerCase();
+      const genderText = gender === 'male' ? 'men' : 'women';
+
+      const suggestions = [
+        {
+          text: `A ${color} ${style} shirt for ${genderText} is great for a ${occasion}.`,
+          link: `https://www.amazon.in/s?k=${genderText}+${color}+${style}+shirt`
+        },
+        {
+          text: `Pair a modern ${style} outfit with sneakers for a ${genderText} for a stylish ${occasion}.`,
+          link: `https://www.amazon.in/s?k=${genderText}+${style}+outfit+sneakers`
+        },
+        {
+          text: `Add simple accessories and a neutral bag to your ${style} look for ${genderText}.`,
+          link: `https://www.amazon.in/s?k=${genderText}+fashion+accessories+bag`
+        },
+        {
+          text: `Try a layered ${style} look with a matching blazer for ${genderText} for the ${occasion}.`,
+          link: `https://www.amazon.in/s?k=${genderText}+${style}+blazer+set`
+        }
+      ];
+
+      const suggestionList = document.getElementById('suggestionList');
+      suggestionList.innerHTML = '';
+
+      suggestions.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+        const span = document.createElement('span');
+        span.innerText = item.text;
+
+        const link = document.createElement('a');
+        link.href = item.link;
+        link.target = '_blank';
+        link.className = 'btn btn-sm btn-outline-primary ml-3';
+        link.innerText = 'Shop';
+
+        li.appendChild(span);
+        li.appendChild(link);
+        suggestionList.appendChild(li);
+      });
+
+      document.getElementById('suggestionBox').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

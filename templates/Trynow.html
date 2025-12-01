@@ -1,0 +1,157 @@
+<!-- Try Now - Virtual Fashion AI -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Virtual Fashion with AI Personalization - Try Now">
+  <meta name="author" content="YourCompany">
+  <title>Try Now - Virtual Fashion AI</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #eef2f7;
+    }
+
+    .iframe-container {
+      width: 100%;
+      height: 90vh;
+      border: none;
+      padding: 20px;
+    }
+
+    #pre-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .upload-section {
+      background: white;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+    }
+
+    .hint-box {
+      background-color: #e9f5ff;
+      border-left: 5px solid #007bff;
+      padding: 15px 20px;
+      margin: 40px auto 20px auto;
+      max-width: 700px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .footer {
+      background-color: #f9f9f9;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer-menu a {
+      color: #007bff;
+      margin: 0 10px;
+      font-weight: 400;
+    }
+
+    .footer-menu a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 576px) {
+      .iframe-container {
+        height: 75vh;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="pre-header">
+    <div class="container">
+      <span>Explore Virtual Fashion with AI Personalization</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Virtual Fashion</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('trynow') }}">Try Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('assistant') }}">Fashion Assistant</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('skin_predictor') }}">Skin Predictor</a></li>
+          {% if 'user' in session %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- IFRAME Tryon -->
+  <iframe
+    class="iframe-container"
+    src="https://mxfxhck-idm-vton.hf.space"
+    frameborder="0"
+    allow="camera; microphone; clipboard-read; clipboard-write; encrypted-media;">
+  </iframe>
+
+  <!-- Hint Note -->
+  <div class="hint-box text-center">
+    💡 <strong>Tip:</strong> After the try-on is complete, click the small ⬇️ download icon in the top-right corner of the image to save it. Then, use the form below to upload it to your profile.
+  </div>
+
+  <!-- Upload to Profile -->
+  <section class="upload-section text-center">
+    <h4>Save Your Try-On Result to Profile</h4>
+    <form id="save-form" enctype="multipart/form-data" method="POST" action="{{ url_for('save_tryon') }}">
+      <input type="file" name="result_image" accept="image/*" required class="form-control mt-3">
+      <button class="btn btn-primary mt-3" type="submit">Upload & Save</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <ul class="footer-menu list-inline">
+        <li class="list-inline-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="list-inline-item"><a href="#">Help</a></li>
+        <li class="list-inline-item"><a href="#">FAQ's</a></li>
+      </ul>
+      <p>&copy; 2024 Virtual Fashion with AI Personalization</p>
+    </div>
+  </div>
+</body>
+</html>

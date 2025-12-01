@@ -1,0 +1,245 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fb; /* Light grayish-blue background */
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #007bff; /* Primary Blue Color */
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a.nav-link {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a.nav-link:hover {
+    background-color: #0056b3; /* Darker Blue on Hover */
+    color: #fff;
+}
+
+.navbar .navbar-brand {
+    font-size: 24px;
+    color: white;
+}
+
+.navbar .navbar-toggler-icon {
+    background-color: white;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #007bff; /* Primary Blue Background */
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.hero-section p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.hero-section .btn-primary {
+    background-color: #0056b3; /* Dark Blue for Button */
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: #003f75; /* Even Darker Blue on Hover */
+}
+
+/* About Section */
+.about-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.about-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-section p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    padding: 60px 0;
+    background-color: #f1f5f8;
+}
+
+.how-it-works-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.how-it-works-section .row div {
+    margin-bottom: 30px;
+}
+
+.how-it-works-section h4 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.how-it-works-section p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Info Section */
+.info-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.info-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.info-section p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 60px 0;
+    background-color: #f1f5f8;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.contact-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+.contact-section a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer .fashion-quote {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    font-style: italic;
+    margin: 20px 0;
+    border-left: 5px solid #007bff;
+    padding-left: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer p {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.footer a {
+    color: #007bff;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.footer a:hover {
+    color: #0056b3;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 30px;
+    padding: 10px 30px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 36px;
+    }
+
+    .hero-section p {
+        font-size: 18px;
+    }
+
+    .hero-section .btn-primary {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+
+    .about-section, .how-it-works-section, .info-section {
+        padding: 40px 0;
+    }
+
+    .footer {
+        padding: 10px 0;
+    }
+}
